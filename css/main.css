@@ -18,8 +18,28 @@ html, body {
 
 .overlay {
     display: none;
+
+    justify-content: center;
+    flex-direction: column;
+
     position: fixed;
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,.8);
+}
+
+.overlay-item {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem;
+}
+
+.image {
+    flex: 1 1 20em;
+    height: auto;
+}
+
+.aside {
+    flex: 2 2 20em;
+    background-color: white;
 }
