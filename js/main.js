@@ -32,6 +32,19 @@ let galleryData = {
       ]
   };
 
-  function init() {}
+  function addImmages() {
+    const gallery = document.querySelectorAll(".gallery")[0];
+    galleryData.photos.forEach(function(element) {
+        console.log(element);
+        const image = document.createElement("IMG");
+        image.src = config.imageFolder + '/' + element.src;
+        image.title = element.title;
+        gallery.appendChild(image);
+      });
+  }
+
+  function init() {
+      addImmages();
+  }
 
   window.onload = init;
