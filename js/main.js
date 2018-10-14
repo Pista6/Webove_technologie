@@ -1,6 +1,7 @@
 const config = {
     imageFolder: 'images',
-    galleryItemClass: 'gallery-item'
+    galleryItemClass: 'gallery-item',
+    overlayItemClass: 'overlay-item'
 };
 
 let galleryData = {
@@ -38,10 +39,22 @@ let galleryData = {
     element.style.display = "block";
   }
 
+  function createImage(title, src, klass){
+    const image = document.createElement('IMG');
+    image.title = title;
+    image.classList.add(klass);
+    image.src = src;
+    return image;
+  }
+
   function openImage(event){
-    console.log(...arguments);
-    console.log(event.srcElement.dataset.description);
     const overlay = document.querySelectorAll('.overlay')[0];
+    const overlayItem = overlay.querySelectorAll('.overlay-item')[0];
+    const image = createImage(
+        event.srcElement.title,
+        event.srcElement.src,
+        config.overlayItemClass);
+    overlayItem.appendChild(image);
     showElement(overlay);
   }
 
@@ -50,11 +63,11 @@ let galleryData = {
   }
 
   function createGalleryImage(element){
-    const image = document.createElement('IMG');
-    image.dataset.description = addDataSet(element);
-    image.title = element.title;
-    image.classList.add(config.galleryItemClass);
-    image.src = `${config.imageFolder}/${element.src}`;
+    const image = createImage(
+        element.title,
+        `${config.imageFolder}/${element.src}`,
+        config.galleryItemClass);
+    //image.dataset.description = addDataSet(element);
     image.addEventListener('click', openImage);
 
     return image;
