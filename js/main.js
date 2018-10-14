@@ -6,7 +6,7 @@ const config = {
     overlayItemAsideClass: 'aside'
 };
 
-let galleryData = {
+const galleryData = {
     'photos': [
         {
           'src': 'fotka1.jpeg',
@@ -25,13 +25,13 @@ let galleryData = {
         },
         {
           'src': 'fotka4.jpeg',
-          'title': 'Názov fotky 3',
-          'description': 'Dlhý popis obrázku 3'
+          'title': 'Názov fotky 4',
+          'description': 'Dlhý popis obrázku 4'
         },
         {
           'src': 'fotka5.jpeg',
-          'title': 'Názov fotky 3',
-          'description': 'Dlhý popis obrázku 3'
+          'title': 'Názov fotky 5',
+          'description': 'Dlhý popis obrázku 5'
         }
       ]
   };
@@ -49,9 +49,10 @@ let galleryData = {
     return image;
   }
 
-  function createAside(description){
+  function createAside(dataset){
     const aside = document.createElement('ASIDE');
-    aside.dataset.description = description;
+    aside.dataset.title = dataset.title;
+    aside.dataset.description = dataset.description;
     aside.classList.add(config.overlayItemAsideClass);
     return aside;
   }
@@ -64,14 +65,15 @@ let galleryData = {
         sourceImage.title,
         sourceImage.src,
         config.overlayItemImageClass);
-    const aside = createAside(sourceImage.dataset.description);
+    const aside = createAside(sourceImage.dataset);
     overlayItem.appendChild(image);
     overlayItem.appendChild(aside);
     showElement(overlay);
   }
 
-  function addDataSet(element){
-    return element.description; 
+  function addDataSet(image, element){
+    image.dataset.title = element.title;
+    image.dataset.description = element.description;
   }
 
   function createGalleryImage(element){
@@ -79,7 +81,7 @@ let galleryData = {
         element.title,
         `${config.imageFolder}/${element.src}`,
         config.galleryItemClass);
-    image.dataset.description = addDataSet(element);
+    addDataSet(image, element);
     image.addEventListener('click', openImage);
 
     return image;
