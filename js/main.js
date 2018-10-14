@@ -33,8 +33,16 @@ let galleryData = {
       ]
   };
 
-  function openImage(){
-      console.log(...arguments);
+
+  function showElement(element){
+    element.style.display = "block";
+  }
+
+  function openImage(event){
+    console.log(...arguments);
+    console.log(event.srcElement.dataset.description);
+    const overlay = document.querySelectorAll('.overlay')[0];
+    showElement(overlay);
   }
 
   function addDataSet(element){
@@ -54,9 +62,11 @@ let galleryData = {
 
   function addImmages() {
     const gallery = document.querySelectorAll('.gallery')[0];
+    const spacer = document.querySelectorAll('.spacer')[0];
     galleryData.photos.forEach(function(element) {
         const image = createGalleryImage(element);
         gallery.appendChild(image);
+        gallery.insertBefore(image, spacer);
       });
   }
 
