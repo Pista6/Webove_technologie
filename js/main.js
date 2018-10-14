@@ -49,11 +49,24 @@ const galleryData = {
     return image;
   }
 
+  function createAsideHeading(title){
+    const heading = document.createElement('H2');
+    heading.innerText = title;
+    return heading;
+  }
+
   function createAside(dataset){
+    const asideHeading = createAsideHeading(dataset.title);
+
     const aside = document.createElement('ASIDE');
     aside.dataset.title = dataset.title;
     aside.dataset.description = dataset.description;
     aside.classList.add(config.overlayItemAsideClass);
+
+    aside.appendChild(asideHeading);
+    // overlayItem.appendChild(aside);
+
+
     return aside;
   }
 
