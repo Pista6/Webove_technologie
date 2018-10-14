@@ -1,5 +1,6 @@
 const config = {
-    imageFolder: 'images'
+    imageFolder: 'images',
+    galleryItemClass: 'gallery-item'
 };
 
 let galleryData = {
@@ -32,12 +33,18 @@ let galleryData = {
       ]
   };
 
+  function createGalleryImage(element){
+    const image = document.createElement("IMG");
+    image.title = element.title;
+    image.classList.add(config.galleryItemClass);
+    image.src = `${config.imageFolder}/${element.src}`;
+    return image;
+  }
+
   function addImmages() {
     const gallery = document.querySelectorAll(".gallery")[0];
     galleryData.photos.forEach(function(element) {
-        const image = document.createElement("IMG");
-        image.src = `${config.imageFolder}/${element.src}`;
-        image.title = element.title;
+        const image = createGalleryImage(element);
         gallery.appendChild(image);
       });
   }
