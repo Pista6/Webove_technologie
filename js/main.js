@@ -7,38 +7,72 @@ const config = {
 };
 
 const galleryData = {
-    'photos': [
-        {
-          'src': 'fotka1.jpeg',
-          'title': 'Názov fotky 1',
-          'description': 'Dlhý popis obrázku 1'
-        },
-        {
-          'src': 'fotka2.jpeg',
-          'title': 'Názov fotky 2',
-          'description': 'Dlhý popis obrázku 2'
-        },
-        {
-          'src': 'fotka3.jpeg',
-          'title': 'Názov fotky 3',
-          'description': 'Dlhý popis obrázku 3'
-        },
-        {
-          'src': 'fotka4.jpeg',
-          'title': 'Názov fotky 4',
-          'description': 'Dlhý popis obrázku 4'
-        },
-        {
-          'src': 'fotka5.jpeg',
-          'title': 'Názov fotky 5',
-          'description': 'Dlhý popis obrázku 5'
-        }
-      ]
-  };
+  'photos': [
+    {
+      'id':'1',
+      'src': 'fotka1.jpeg',
+      'title': 'Názov fotky 1',
+      'description': 'Dlhý popis obrázku 1'
+    },
+    {
+      'id':'2',
+      'src': 'fotka2.jpeg',
+      'title': 'Názov fotky 2',
+      'description': 'Dlhý popis obrázku 2'
+    },
+    {
+      'id':'3',
+      'src': 'fotka3.jpeg',
+      'title': 'Názov fotky 3',
+      'description': 'Dlhý popis obrázku 3'
+    },
+    {
+      'id':'4',
+      'src': 'fotka4.jpeg',
+      'title': 'Názov fotky 4',
+      'description': 'Dlhý popis obrázku 4'
+    },
+    {
+      'id':'5',
+      'src': 'fotka5.jpeg',
+      'title': 'Názov fotky 5',
+      'description': 'Dlhý popis obrázku 5'
+    }
+  ]
+};
 
 
   function showElement(element){
     element.style.display = "flex";
+  }
+
+  function showImage(nextSourceImg){
+    const overlayItem = document.querySelector(".overlay-item");
+    const nextImage = createImage(
+      nextSourceImg.id, 
+      nextSourceImg.title, 
+      nextSourceImg.src, 
+      config.overlayItemImageClass);
+    const nextAside = createAside(nextSourceImg.dataset);
+
+    overlayItem.appendChild(nextImage);
+    overlayItem.appendChild(nextAside);
+  }
+
+  function previousImage(){
+    const nextImgIntegerID = parseInt(document.querySelector("." + config.overlayItemImageClass).id.valueOf()) - 1;
+    const nextImg = document.getElementById(nextImgIntegerID.toString());
+    const overlayItem = document.querySelector(".overlay-item");
+    clearOverlayItems(overlayItem);
+    showImage(nextImg);
+  }
+
+  function nextImage(){
+    const nextImgIntegerID = parseInt(document.querySelector("." + config.overlayItemImageClass).id.valueOf()) + 1;
+    const nextImg = document.getElementById(nextImgIntegerID.toString());
+    const overlayItem = document.querySelector(".overlay-item");
+    clearOverlayItems(overlayItem);
+    showImage(nextImg);
   }
 
   function clearOverlayItems(overlayItem){
@@ -55,8 +89,9 @@ const galleryData = {
     clearOverlayItems(overlayItem);
   }
 
-  function createImage(title, src, klass){
+  function createImage(id, title, src, klass){
     const image = document.createElement('IMG');
+    image.id = id;
     image.title = title;
     image.classList.add(klass);
     image.src = src;
@@ -79,6 +114,7 @@ const galleryData = {
     const asideHeading = createAsideHeading(dataset.title);
     const asideP = createAsideP(dataset.description);
     const aside = document.createElement('ASIDE');
+    aside.dataset.id = dataset.id;
     aside.dataset.title = dataset.title;
     aside.dataset.description = dataset.description;
     aside.classList.add(config.overlayItemAsideClass);
@@ -95,6 +131,7 @@ const galleryData = {
     const overlayItem = overlay.querySelectorAll('.overlay-item')[0];
     
     const image = createImage(
+        sourceImage.id,
         sourceImage.title,
         sourceImage.src,
         config.overlayItemImageClass);
@@ -106,12 +143,14 @@ const galleryData = {
   }
 
   function addDataSet(image, element){
+    image.dataset.id = element.id;
     image.dataset.title = element.title;
     image.dataset.description = element.description;
   }
 
   function createGalleryImage(element){
     const image = createImage(
+        element.id,
         element.title,
         `${config.imageFolder}/${element.src}`,
         config.galleryItemClass);

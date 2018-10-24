@@ -48,4 +48,19 @@ html, body {
     position: absolute;
     right: 0;
     top: 0;
+    cursor: pointer;
+}
+
+.previous-img{
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    cursor: pointer;
+}
+
+.next-img{
+    position: absolute;
+    top: 50%;
+    right: 53.5%;
+    cursor: pointer;
 }
