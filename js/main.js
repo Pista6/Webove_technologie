@@ -41,6 +41,20 @@ const galleryData = {
     element.style.display = "flex";
   }
 
+  function clearOverlayItems(overlayItem){
+    //debugger;
+    const aside = document.querySelector("." + config.overlayItemAsideClass);
+    const img = document.querySelector("." + config.overlayItemImageClass);
+    overlayItem.removeChild(aside);
+    overlayItem.removeChild(img);
+  }
+
+  function closeImage(){
+    document.querySelectorAll(".overlay")[0].style.display = "none";
+    const overlayItem = document.querySelector(".overlay-item");
+    clearOverlayItems(overlayItem);
+  }
+
   function createImage(title, src, klass){
     const image = document.createElement('IMG');
     image.title = title;
@@ -55,17 +69,22 @@ const galleryData = {
     return heading;
   }
 
+  function createAsideP(text){
+    const p = document.createElement('p');
+    p.innerText = text;
+    return p;
+  }
+
   function createAside(dataset){
     const asideHeading = createAsideHeading(dataset.title);
-
+    const asideP = createAsideP(dataset.description);
     const aside = document.createElement('ASIDE');
     aside.dataset.title = dataset.title;
     aside.dataset.description = dataset.description;
     aside.classList.add(config.overlayItemAsideClass);
 
     aside.appendChild(asideHeading);
-    // overlayItem.appendChild(aside);
-
+    aside.appendChild(asideP);
 
     return aside;
   }
@@ -74,11 +93,13 @@ const galleryData = {
     const sourceImage = event.srcElement;
     const overlay = document.querySelectorAll('.overlay')[0];
     const overlayItem = overlay.querySelectorAll('.overlay-item')[0];
+    
     const image = createImage(
         sourceImage.title,
         sourceImage.src,
         config.overlayItemImageClass);
     const aside = createAside(sourceImage.dataset);
+
     overlayItem.appendChild(image);
     overlayItem.appendChild(aside);
     showElement(overlay);

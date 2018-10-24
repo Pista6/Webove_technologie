@@ -43,3 +43,9 @@ html, body {
     flex: 2 2 20em;
     background-color: white;
 }
+
+.close-img{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
