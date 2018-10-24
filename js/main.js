@@ -61,18 +61,26 @@ const galleryData = {
 
   function previousImage(){
     const nextImgIntegerID = parseInt(document.querySelector("." + config.overlayItemImageClass).id.valueOf()) - 1;
-    const nextImg = document.getElementById(nextImgIntegerID.toString());
-    const overlayItem = document.querySelector(".overlay-item");
-    clearOverlayItems(overlayItem);
-    showImage(nextImg);
+    
+    if(nextImgIntegerID != 0){
+      const nextImg = document.getElementById(nextImgIntegerID.toString());
+      const overlayItem = document.querySelector(".overlay-item");
+      clearOverlayItems(overlayItem);
+      showImage(nextImg);
+    }
   }
 
   function nextImage(){
+    const galleryChildrenLength = document.querySelector('.gallery').children.length;
     const nextImgIntegerID = parseInt(document.querySelector("." + config.overlayItemImageClass).id.valueOf()) + 1;
-    const nextImg = document.getElementById(nextImgIntegerID.toString());
-    const overlayItem = document.querySelector(".overlay-item");
-    clearOverlayItems(overlayItem);
-    showImage(nextImg);
+
+    console.log("Galery length " + galleryChildrenLength);
+    if(nextImgIntegerID <= (galleryChildrenLength - 1)){
+      const nextImg = document.getElementById(nextImgIntegerID.toString());
+      const overlayItem = document.querySelector(".overlay-item");
+      clearOverlayItems(overlayItem);
+      showImage(nextImg);
+    }
   }
 
   function clearOverlayItems(overlayItem){
